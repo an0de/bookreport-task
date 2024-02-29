@@ -1,8 +1,8 @@
 const library = {
   books: [],
 
-  addBook(book) {
-    this.books.push(book);
+  addBook(name, author, year, genre, pagesCount) {
+    this.books.push({ name, author, year, genre, pagesCount });
   },
 
   removeBook(name) {
@@ -25,7 +25,7 @@ const library = {
   genreReport() {
     const genreStat = this.books.reduce((acc, { genre }) => {
       if (!Object.hasOwn(acc, genre)) {
-        acc[genre] = 1;
+        acc[genre] = 0;
       }
       acc[genre] += 1;
       return acc;
@@ -33,7 +33,7 @@ const library = {
     const report = Object.entries(genreStat)
       .map(([genre, bookCount]) => `${genre}: ${bookCount}`)
       .join('\n');
-    console.log(report);
+    return report;
   },
 
   averagePagesReport() {
@@ -44,7 +44,7 @@ const library = {
   yearReport() {
     const sorted = this.books.map((book) => book).sort((a, b) => Math.sign(a.year - b.year));
     const report = sorted.map((book) => Object.keys(book).map((key) => book[key]).join(' ')).join('\n');
-    console.log(report);
+    return report;
   },
 };
 
